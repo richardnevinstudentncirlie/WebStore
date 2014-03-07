@@ -1,0 +1,34 @@
+﻿@model WebStore.WebUI.Models.ProductsListViewModel
+
+@{
+    ViewBag.Title = "Products";
+
+}
+
+<div class="navbar" role="navigation">
+    <a class="navbar-brand" href="#">Product List</a>
+    @Html.Action("Summary", "Cart")
+</div>
+<div class="row panel">
+    <div id="categories" class="col-xs-3">
+        @Html.Action("Menu", "Nav")
+    </div>
+    <div class="col-xs-8">
+        @foreach (var p in Model.Products)
+        {
+            @Html.Partial("ProductPartialSummary", p)
+        }
+
+        <div class="pager">
+            @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+        </div>
+
+        <div class="btn-group pull-right">
+            @Html.PageLinks(Model.PagingInfo, x => Url.Action("List",
+        new { page = x, category = Model.CurrentCategory }))
+        </div>
+
+    </div>
+</div>
+
+
