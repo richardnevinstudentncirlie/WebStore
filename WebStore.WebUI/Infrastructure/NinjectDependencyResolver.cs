@@ -28,6 +28,7 @@ namespace WebStore.WebUI.Infrastructure {
 
         private void AddBindings() {
             kernel.Bind<IProductRepository>().To<EFProductRepository>();
+            kernel.Bind<ICategoryRepository>().To<EFCategoryRepository>();
 
             EmailSettings emailSettings = new EmailSettings {
                 WriteAsFile = bool.Parse(ConfigurationManager

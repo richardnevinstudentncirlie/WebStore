@@ -1,8 +1,10 @@
 ﻿using WebStore.Domain.Entities;
 
-namespace WebStore.Domain.Abstract {
+namespace WebStore.Domain.Abstract 
+{
 
-    public interface IOrderProcessor {
+    public interface IOrderProcessor 
+    {
 
         void ProcessOrder(Cart cart, ShippingDetails shippingDetails);
     }
