@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<string>
 
+@section featured {
+    @Html.Partial("MainHeadingPartial")
+}
+
 @Html.ActionLink("List All", "List", "Product", null,
     new { @class = "btn btn-block btn-default btn-lg" })
 

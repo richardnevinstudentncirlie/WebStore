@@ -1,7 +1,11 @@
 ﻿@model IEnumerable<WebStore.Domain.Entities.Product>
 
 @{
-    ViewBag.Title = "Admin: All Products";
+    ViewBag.Title = "Products";
+}
+
+@section featured {
+    @Html.Partial("MainHeadingPartial")
 }
 
 <div class="panel panel-default">

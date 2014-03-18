@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebStore.Domain.Entities {
+namespace WebStore.Domain.Entities 
+{
 
-    public class ShippingDetails {
+    public class ShippingDetails 
+    {
         [Required(ErrorMessage = "Please enter a name")]
         public string Name { get; set; }
 

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using WebStore.Domain.Entities;
 
-namespace WebStore.Domain.Abstract {
-    public interface IProductRepository {
+namespace WebStore.Domain.Abstract 
+{
+    public interface IProductRepository 
+    {
 
         IEnumerable<Product> Products { get; }
 

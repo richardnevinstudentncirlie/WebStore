@@ -1,5 +1,9 @@
 ﻿@model WebStore.Domain.Entities.Cart
 
+@section featured {
+    @Html.Partial("MainHeadingPartial")
+}
+
 <div class="navbar-right">
     @Html.ActionLink("Checkout", "Index", "Cart",
         new { returnUrl = Request.Url.PathAndQuery },
