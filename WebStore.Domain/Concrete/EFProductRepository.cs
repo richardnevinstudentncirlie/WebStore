@@ -1,4 +1,5 @@
-﻿using WebStore.Domain.Abstract;
+﻿using System;
+using WebStore.Domain.Abstract;
 using WebStore.Domain.Entities;
 using System.Collections.Generic;
 
@@ -20,6 +21,8 @@ namespace WebStore.Domain.Concrete
 
             if (product.ProductID == 0) 
             {
+                product.CreatedAt = DateTime.Now;
+                product.UpdatedAt = DateTime.Now;
                 context.Products.Add(product);
             } 
             else 
@@ -31,6 +34,12 @@ namespace WebStore.Domain.Concrete
                     dbEntry.Description = product.Description;
                     dbEntry.Price = product.Price;
                     dbEntry.Category = product.Category;
+                    dbEntry.Quantity = product.Quantity;
+                    dbEntry.ImageURL = product.ImageURL;
+                    dbEntry.Special = product.Special;
+                    dbEntry.Seller = product.Seller;
+                    dbEntry.Buyer = product.Buyer;
+                    dbEntry.UpdatedAt = DateTime.Now;
                 }
             }
             context.SaveChanges();

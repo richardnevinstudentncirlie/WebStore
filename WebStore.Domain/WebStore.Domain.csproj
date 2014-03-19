@@ -54,20 +54,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IAddressRepository.cs" />
     <Compile Include="Abstract\ICategoryRepository.cs" />
+    <Compile Include="Abstract\ICustomerRepository.cs" />
+    <Compile Include="Abstract\IOrderItemRepository.cs" />
     <Compile Include="Abstract\IOrderProcessor.cs" />
+    <Compile Include="Abstract\IOrderRepository.cs" />
     <Compile Include="Abstract\IProductRepository.cs" />
+    <Compile Include="Concrete\EFAddressRepository.cs" />
+    <Compile Include="Concrete\EFCustomerRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFCategoryRepository.cs" />
+    <Compile Include="Concrete\EFOrderItemsRepository.cs" />
+    <Compile Include="Concrete\EFOrderRepository.cs" />
     <Compile Include="Concrete\EFProductRepository.cs" />
     <Compile Include="Concrete\EmailOrderProcessor.cs" />
+    <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Cart.cs" />
     <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Customer.cs" />
+    <Compile Include="Entities\Order.cs" />
+    <Compile Include="Entities\OrderItem.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ShippingDetails.cs" />
     <Compile Include="Migrations\201403182218300_init.cs" />
     <Compile Include="Migrations\201403182218300_init.Designer.cs">
       <DependentUpon>201403182218300_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201403190025514_init1.cs" />
+    <Compile Include="Migrations\201403190025514_init1.Designer.cs">
+      <DependentUpon>201403190025514_init1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201403190035531_init2.cs" />
+    <Compile Include="Migrations\201403190035531_init2.Designer.cs">
+      <DependentUpon>201403190035531_init2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201403190040372_init3.cs" />
+    <Compile Include="Migrations\201403190040372_init3.Designer.cs">
+      <DependentUpon>201403190040372_init3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,6 +103,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201403182218300_init.resx">
       <DependentUpon>201403182218300_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403190025514_init1.resx">
+      <DependentUpon>201403190025514_init1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403190035531_init2.resx">
+      <DependentUpon>201403190035531_init2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403190040372_init3.resx">
+      <DependentUpon>201403190040372_init3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

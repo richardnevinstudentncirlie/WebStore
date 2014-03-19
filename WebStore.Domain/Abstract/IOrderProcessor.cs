@@ -7,5 +7,6 @@ namespace WebStore.Domain.Abstract
     {
 
         void ProcessOrder(Cart cart, ShippingDetails shippingDetails);
+
     }
 }

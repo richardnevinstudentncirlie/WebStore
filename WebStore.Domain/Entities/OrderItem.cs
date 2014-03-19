@@ -4,14 +4,15 @@ using System.Web.Mvc;
 namespace WebStore.Domain.Entities
 {
 
-    public class Product
+    public class OrderItem
     {
 
         [HiddenInput(DisplayValue = false)]
-        public int ProductID { get; set; }
+        public int OrderItemID { get; set; }
 
-        
-        [MaxLength(50), Required(ErrorMessage = "Please enter a product name")]
+
+        [MaxLength(50)]
+        [Required(ErrorMessage = "Please enter a product name")]
         public string Name { get; set; }
 
         [DataType(DataType.MultilineText)]
@@ -22,14 +23,12 @@ namespace WebStore.Domain.Entities
         [Range(0.01, double.MaxValue, ErrorMessage = "Please enter a positive price")]
         public decimal Price { get; set; }
 
-        [MaxLength(50), Required(ErrorMessage = "Please specify a category")]
+        [MaxLength(50)]
+        [Required(ErrorMessage = "Please specify a category")]
         public string Category { get; set; }
-        
-        [Required]
-        [Range(0, int.MaxValue, ErrorMessage = "Please enter a positive quantity")]
-        public int Quantity { get; set; }
 
-        [MaxLength(255), Required(ErrorMessage = "Please specify image location")]
+        [MaxLength(255)]
+        [Required(ErrorMessage = "Please specify image location")]
         public string ImageURL { get; set; }
 
         [Required(ErrorMessage = "Please specify if a special")]
@@ -40,17 +39,22 @@ namespace WebStore.Domain.Entities
  
         [HiddenInput(DisplayValue = false)]
         public int Buyer { get; set; }
- 
- 
+        
+        [Required]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Please enter a positive price")]
+        public int Quantity { get; set; }
+
+        
+        
         [HiddenInput(DisplayValue = false)]
         public DateTime CreatedAt { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         public DateTime UpdatedAt { get; set; }
 
-        public virtual Category ProductCategory { get; set; }
-        public virtual Customer ProductCustomer { get; set; }
+           
+        public virtual Order OrderItemOrder { get; set; }
+        public virtual Product OrderItemProduct { get; set; }
 
-    }
-
+    }    
 }
