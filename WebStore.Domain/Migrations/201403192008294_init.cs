@@ -3,7 +3,7 @@ namespace WebStore.Domain.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init1 : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
@@ -21,11 +21,11 @@ namespace WebStore.Domain.Migrations
                         Country = c.String(nullable: false, maxLength: 50),
                         CreatedAt = c.DateTime(nullable: false),
                         UpdatedAt = c.DateTime(nullable: false),
-                        CustomerID_CustomerID = c.Int(),
+                        CustomerAddress_CustomerID = c.Int(),
                     })
                 .PrimaryKey(t => t.AddressID)
-                .ForeignKey("dbo.Customers", t => t.CustomerID_CustomerID)
-                .Index(t => t.CustomerID_CustomerID);
+                .ForeignKey("dbo.Customers", t => t.CustomerAddress_CustomerID)
+                .Index(t => t.CustomerAddress_CustomerID);
             
             CreateTable(
                 "dbo.Customers",
@@ -55,15 +55,15 @@ namespace WebStore.Domain.Migrations
                         CreatedAt = c.DateTime(nullable: false),
                         UpdatedAt = c.DateTime(nullable: false),
                         BillToAddress_AddressID = c.Int(),
-                        CustomerID_CustomerID = c.Int(),
+                        CustomerOrder_CustomerID = c.Int(),
                         ShipToAddress_AddressID = c.Int(),
                     })
                 .PrimaryKey(t => t.OrderID)
                 .ForeignKey("dbo.Addresses", t => t.BillToAddress_AddressID)
-                .ForeignKey("dbo.Customers", t => t.CustomerID_CustomerID)
+                .ForeignKey("dbo.Customers", t => t.CustomerOrder_CustomerID)
                 .ForeignKey("dbo.Addresses", t => t.ShipToAddress_AddressID)
                 .Index(t => t.BillToAddress_AddressID)
-                .Index(t => t.CustomerID_CustomerID)
+                .Index(t => t.CustomerOrder_CustomerID)
                 .Index(t => t.ShipToAddress_AddressID);
             
             CreateTable(
@@ -75,68 +75,83 @@ namespace WebStore.Domain.Migrations
                         Description = c.String(nullable: false),
                         Price = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Category = c.String(nullable: false, maxLength: 50),
-                        ImageURL = c.String(nullable: false, maxLength: 255),
                         Special = c.Boolean(nullable: false),
+                        ImageData = c.Binary(),
+                        ImageMimeType = c.String(),
                         Seller = c.Int(nullable: false),
                         Buyer = c.Int(nullable: false),
                         Quantity = c.Int(nullable: false),
                         CreatedAt = c.DateTime(nullable: false),
                         UpdatedAt = c.DateTime(nullable: false),
-                        OrderID_OrderID = c.Int(),
-                        ProductID_ProductID = c.Int(),
+                        OrderItemOrder_OrderID = c.Int(),
+                        OrderItemProduct_ProductID = c.Int(),
                     })
                 .PrimaryKey(t => t.OrderItemID)
-                .ForeignKey("dbo.Orders", t => t.OrderID_OrderID)
-                .ForeignKey("dbo.Products", t => t.ProductID_ProductID)
-                .Index(t => t.OrderID_OrderID)
-                .Index(t => t.ProductID_ProductID);
+                .ForeignKey("dbo.Orders", t => t.OrderItemOrder_OrderID)
+                .ForeignKey("dbo.Products", t => t.OrderItemProduct_ProductID)
+                .Index(t => t.OrderItemOrder_OrderID)
+                .Index(t => t.OrderItemProduct_ProductID);
             
-            AddColumn("dbo.Products", "Quantity", c => c.Int(nullable: false));
-            AddColumn("dbo.Products", "ImageURL", c => c.String(nullable: false, maxLength: 255));
-            AddColumn("dbo.Products", "Special", c => c.Boolean(nullable: false));
-            AddColumn("dbo.Products", "Seller", c => c.Int(nullable: false));
-            AddColumn("dbo.Products", "Buyer", c => c.Int(nullable: false));
-            AddColumn("dbo.Products", "CreatedAt", c => c.DateTime(nullable: false));
-            AddColumn("dbo.Products", "UpdatedAt", c => c.DateTime(nullable: false));
-            AddColumn("dbo.Products", "CategoryID_CategoryID", c => c.Int());
-            AddColumn("dbo.Products", "CustomerID_CustomerID", c => c.Int());
-            AlterColumn("dbo.Products", "Name", c => c.String(nullable: false, maxLength: 50));
-            AlterColumn("dbo.Products", "Category", c => c.String(nullable: false, maxLength: 50));
-            CreateIndex("dbo.Products", "CategoryID_CategoryID");
-            CreateIndex("dbo.Products", "CustomerID_CustomerID");
-            AddForeignKey("dbo.Products", "CategoryID_CategoryID", "dbo.Categories", "CategoryID");
-            AddForeignKey("dbo.Products", "CustomerID_CustomerID", "dbo.Customers", "CustomerID");
+            CreateTable(
+                "dbo.Products",
+                c => new
+                    {
+                        ProductID = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 50),
+                        Description = c.String(nullable: false),
+                        Price = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Category = c.String(nullable: false, maxLength: 50),
+                        Quantity = c.Int(nullable: false),
+                        Special = c.Boolean(nullable: false),
+                        ImageData = c.Binary(),
+                        ImageMimeType = c.String(),
+                        Seller = c.Int(nullable: false),
+                        Buyer = c.Int(nullable: false),
+                        CreatedAt = c.DateTime(nullable: false),
+                        UpdatedAt = c.DateTime(nullable: false),
+                        ProductCategory_CategoryID = c.Int(),
+                        ProductCustomer_CustomerID = c.Int(),
+                    })
+                .PrimaryKey(t => t.ProductID)
+                .ForeignKey("dbo.Categories", t => t.ProductCategory_CategoryID)
+                .ForeignKey("dbo.Customers", t => t.ProductCustomer_CustomerID)
+                .Index(t => t.ProductCategory_CategoryID)
+                .Index(t => t.ProductCustomer_CustomerID);
+            
+            CreateTable(
+                "dbo.Categories",
+                c => new
+                    {
+                        CategoryID = c.Int(nullable: false, identity: true),
+                        CategoryCode = c.String(nullable: false, maxLength: 50),
+                        Description = c.String(nullable: false),
+                        CreatedAt = c.DateTime(nullable: false),
+                        UpdatedAt = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.CategoryID);
+            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Orders", "ShipToAddress_AddressID", "dbo.Addresses");
-            DropForeignKey("dbo.OrderItems", "ProductID_ProductID", "dbo.Products");
-            DropForeignKey("dbo.Products", "CustomerID_CustomerID", "dbo.Customers");
-            DropForeignKey("dbo.Products", "CategoryID_CategoryID", "dbo.Categories");
-            DropForeignKey("dbo.OrderItems", "OrderID_OrderID", "dbo.Orders");
-            DropForeignKey("dbo.Orders", "CustomerID_CustomerID", "dbo.Customers");
+            DropForeignKey("dbo.OrderItems", "OrderItemProduct_ProductID", "dbo.Products");
+            DropForeignKey("dbo.Products", "ProductCustomer_CustomerID", "dbo.Customers");
+            DropForeignKey("dbo.Products", "ProductCategory_CategoryID", "dbo.Categories");
+            DropForeignKey("dbo.OrderItems", "OrderItemOrder_OrderID", "dbo.Orders");
+            DropForeignKey("dbo.Orders", "CustomerOrder_CustomerID", "dbo.Customers");
             DropForeignKey("dbo.Orders", "BillToAddress_AddressID", "dbo.Addresses");
-            DropForeignKey("dbo.Addresses", "CustomerID_CustomerID", "dbo.Customers");
+            DropForeignKey("dbo.Addresses", "CustomerAddress_CustomerID", "dbo.Customers");
             DropIndex("dbo.Orders", new[] { "ShipToAddress_AddressID" });
-            DropIndex("dbo.OrderItems", new[] { "ProductID_ProductID" });
-            DropIndex("dbo.Products", new[] { "CustomerID_CustomerID" });
-            DropIndex("dbo.Products", new[] { "CategoryID_CategoryID" });
-            DropIndex("dbo.OrderItems", new[] { "OrderID_OrderID" });
-            DropIndex("dbo.Orders", new[] { "CustomerID_CustomerID" });
+            DropIndex("dbo.OrderItems", new[] { "OrderItemProduct_ProductID" });
+            DropIndex("dbo.Products", new[] { "ProductCustomer_CustomerID" });
+            DropIndex("dbo.Products", new[] { "ProductCategory_CategoryID" });
+            DropIndex("dbo.OrderItems", new[] { "OrderItemOrder_OrderID" });
+            DropIndex("dbo.Orders", new[] { "CustomerOrder_CustomerID" });
             DropIndex("dbo.Orders", new[] { "BillToAddress_AddressID" });
-            DropIndex("dbo.Addresses", new[] { "CustomerID_CustomerID" });
-            AlterColumn("dbo.Products", "Category", c => c.String(nullable: false));
-            AlterColumn("dbo.Products", "Name", c => c.String(nullable: false));
-            DropColumn("dbo.Products", "CustomerID_CustomerID");
-            DropColumn("dbo.Products", "CategoryID_CategoryID");
-            DropColumn("dbo.Products", "UpdatedAt");
-            DropColumn("dbo.Products", "CreatedAt");
-            DropColumn("dbo.Products", "Buyer");
-            DropColumn("dbo.Products", "Seller");
-            DropColumn("dbo.Products", "Special");
-            DropColumn("dbo.Products", "ImageURL");
-            DropColumn("dbo.Products", "Quantity");
+            DropIndex("dbo.Addresses", new[] { "CustomerAddress_CustomerID" });
+            DropTable("dbo.Categories");
+            DropTable("dbo.Products");
             DropTable("dbo.OrderItems");
             DropTable("dbo.Orders");
             DropTable("dbo.Customers");

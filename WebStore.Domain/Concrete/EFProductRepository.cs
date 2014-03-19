@@ -35,7 +35,8 @@ namespace WebStore.Domain.Concrete
                     dbEntry.Price = product.Price;
                     dbEntry.Category = product.Category;
                     dbEntry.Quantity = product.Quantity;
-                    dbEntry.ImageURL = product.ImageURL;
+                    dbEntry.ImageData = product.ImageData;
+                    dbEntry.ImageMimeType = product.ImageMimeType;
                     dbEntry.Special = product.Special;
                     dbEntry.Seller = product.Seller;
                     dbEntry.Buyer = product.Buyer;

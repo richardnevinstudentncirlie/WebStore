@@ -29,12 +29,12 @@ namespace WebStore.Domain.Entities
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a positive quantity")]
         public int Quantity { get; set; }
 
-        [MaxLength(255), Required(ErrorMessage = "Please specify image location")]
-        public string ImageURL { get; set; }
-
         [Required(ErrorMessage = "Please specify if a special")]
         public bool Special { get; set; }
-        
+
+        public byte[] ImageData { get; set; }
+        public string ImageMimeType { get; set; }
+
         [HiddenInput(DisplayValue = false)]
         public int Seller { get; set; }
  
