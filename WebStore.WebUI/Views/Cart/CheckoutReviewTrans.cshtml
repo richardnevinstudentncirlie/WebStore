@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Checkout Review Transsaction";
+}
+@section featured {
+    @Html.Partial("MainHeadingPartial")
+}
+<h2>Checkout Complete</h2>
+<p />
+Payment Transaction ID: @ViewBag.PaymentConfirmation
+<p />
+@Html.ActionLink("Continue", "CheckoutReviewTransCont", null, new { @class = "btn btn-primary" })
+

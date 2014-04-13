@@ -21,11 +21,11 @@ namespace WebStore.Domain.Migrations
                         Country = c.String(nullable: false, maxLength: 50),
                         CreatedAt = c.DateTime(nullable: false),
                         UpdatedAt = c.DateTime(nullable: false),
-                        CustomerAddress_CustomerID = c.Int(),
+                        CustomerID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.AddressID)
-                .ForeignKey("dbo.Customers", t => t.CustomerAddress_CustomerID)
-                .Index(t => t.CustomerAddress_CustomerID);
+                .ForeignKey("dbo.Customers", t => t.CustomerID)
+                .Index(t => t.CustomerID);
             
             CreateTable(
                 "dbo.Customers",
@@ -52,19 +52,31 @@ namespace WebStore.Domain.Migrations
                         ShipDate = c.DateTime(nullable: false),
                         TotalOrder = c.Decimal(nullable: false, precision: 18, scale: 2),
                         ProductCount = c.Int(nullable: false),
+                        FirstName = c.String(maxLength: 50),
+                        LastName = c.String(maxLength: 30),
+                        Company = c.String(maxLength: 120),
+                        Email = c.String(maxLength: 225),
+                        StreetLine1 = c.String(maxLength: 50),
+                        StreetLine2 = c.String(maxLength: 50),
+                        StreetLine3 = c.String(maxLength: 50),
+                        City = c.String(maxLength: 50),
+                        PostalCode = c.String(maxLength: 50),
+                        County = c.String(maxLength: 50),
+                        Country = c.String(maxLength: 50),
+                        PaymentConfirmation = c.String(maxLength: 225),
                         CreatedAt = c.DateTime(nullable: false),
                         UpdatedAt = c.DateTime(nullable: false),
-                        BillToAddress_AddressID = c.Int(),
-                        CustomerOrder_CustomerID = c.Int(),
-                        ShipToAddress_AddressID = c.Int(),
+                        CustomerID = c.Int(nullable: false),
+                        ShipToAddressID = c.Int(nullable: false),
+                        BillToAddressID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.OrderID)
-                .ForeignKey("dbo.Addresses", t => t.BillToAddress_AddressID)
-                .ForeignKey("dbo.Customers", t => t.CustomerOrder_CustomerID)
-                .ForeignKey("dbo.Addresses", t => t.ShipToAddress_AddressID)
-                .Index(t => t.BillToAddress_AddressID)
-                .Index(t => t.CustomerOrder_CustomerID)
-                .Index(t => t.ShipToAddress_AddressID);
+                .ForeignKey("dbo.Addresses", t => t.BillToAddressID)
+                .ForeignKey("dbo.Customers", t => t.CustomerID)
+                .ForeignKey("dbo.Addresses", t => t.ShipToAddressID)
+                .Index(t => t.BillToAddressID)
+                .Index(t => t.CustomerID)
+                .Index(t => t.ShipToAddressID);
             
             CreateTable(
                 "dbo.OrderItems",
@@ -83,14 +95,29 @@ namespace WebStore.Domain.Migrations
                         Quantity = c.Int(nullable: false),
                         CreatedAt = c.DateTime(nullable: false),
                         UpdatedAt = c.DateTime(nullable: false),
-                        OrderItemOrder_OrderID = c.Int(),
-                        OrderItemProduct_ProductID = c.Int(),
+                        OrderID = c.Int(nullable: false),
+                        ProductID = c.Int(nullable: false),
+                        CategoryID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.OrderItemID)
-                .ForeignKey("dbo.Orders", t => t.OrderItemOrder_OrderID)
-                .ForeignKey("dbo.Products", t => t.OrderItemProduct_ProductID)
-                .Index(t => t.OrderItemOrder_OrderID)
-                .Index(t => t.OrderItemProduct_ProductID);
+                .ForeignKey("dbo.Categories", t => t.CategoryID)
+                .ForeignKey("dbo.Orders", t => t.OrderID)
+                .ForeignKey("dbo.Products", t => t.ProductID)
+                .Index(t => t.CategoryID)
+                .Index(t => t.OrderID)
+                .Index(t => t.ProductID);
+            
+            CreateTable(
+                "dbo.Categories",
+                c => new
+                    {
+                        CategoryID = c.Int(nullable: false, identity: true),
+                        CategoryCode = c.String(nullable: false, maxLength: 50),
+                        Description = c.String(nullable: false),
+                        CreatedAt = c.DateTime(nullable: false),
+                        UpdatedAt = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.CategoryID);
             
             CreateTable(
                 "dbo.Products",
@@ -109,49 +136,39 @@ namespace WebStore.Domain.Migrations
                         Buyer = c.Int(nullable: false),
                         CreatedAt = c.DateTime(nullable: false),
                         UpdatedAt = c.DateTime(nullable: false),
-                        ProductCategory_CategoryID = c.Int(),
-                        ProductCustomer_CustomerID = c.Int(),
+                        CategoryID = c.Int(nullable: false),
+                        CustomerID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ProductID)
-                .ForeignKey("dbo.Categories", t => t.ProductCategory_CategoryID)
-                .ForeignKey("dbo.Customers", t => t.ProductCustomer_CustomerID)
-                .Index(t => t.ProductCategory_CategoryID)
-                .Index(t => t.ProductCustomer_CustomerID);
-            
-            CreateTable(
-                "dbo.Categories",
-                c => new
-                    {
-                        CategoryID = c.Int(nullable: false, identity: true),
-                        CategoryCode = c.String(nullable: false, maxLength: 50),
-                        Description = c.String(nullable: false),
-                        CreatedAt = c.DateTime(nullable: false),
-                        UpdatedAt = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.CategoryID);
+                .ForeignKey("dbo.Categories", t => t.CategoryID)
+                .ForeignKey("dbo.Customers", t => t.CustomerID)
+                .Index(t => t.CategoryID)
+                .Index(t => t.CustomerID);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Orders", "ShipToAddress_AddressID", "dbo.Addresses");
-            DropForeignKey("dbo.OrderItems", "OrderItemProduct_ProductID", "dbo.Products");
-            DropForeignKey("dbo.Products", "ProductCustomer_CustomerID", "dbo.Customers");
-            DropForeignKey("dbo.Products", "ProductCategory_CategoryID", "dbo.Categories");
-            DropForeignKey("dbo.OrderItems", "OrderItemOrder_OrderID", "dbo.Orders");
-            DropForeignKey("dbo.Orders", "CustomerOrder_CustomerID", "dbo.Customers");
-            DropForeignKey("dbo.Orders", "BillToAddress_AddressID", "dbo.Addresses");
-            DropForeignKey("dbo.Addresses", "CustomerAddress_CustomerID", "dbo.Customers");
-            DropIndex("dbo.Orders", new[] { "ShipToAddress_AddressID" });
-            DropIndex("dbo.OrderItems", new[] { "OrderItemProduct_ProductID" });
-            DropIndex("dbo.Products", new[] { "ProductCustomer_CustomerID" });
-            DropIndex("dbo.Products", new[] { "ProductCategory_CategoryID" });
-            DropIndex("dbo.OrderItems", new[] { "OrderItemOrder_OrderID" });
-            DropIndex("dbo.Orders", new[] { "CustomerOrder_CustomerID" });
-            DropIndex("dbo.Orders", new[] { "BillToAddress_AddressID" });
-            DropIndex("dbo.Addresses", new[] { "CustomerAddress_CustomerID" });
-            DropTable("dbo.Categories");
+            DropForeignKey("dbo.OrderItems", "ProductID", "dbo.Products");
+            DropForeignKey("dbo.Products", "CustomerID", "dbo.Customers");
+            DropForeignKey("dbo.Products", "CategoryID", "dbo.Categories");
+            DropForeignKey("dbo.OrderItems", "OrderID", "dbo.Orders");
+            DropForeignKey("dbo.OrderItems", "CategoryID", "dbo.Categories");
+            DropForeignKey("dbo.Orders", "ShipToAddressID", "dbo.Addresses");
+            DropForeignKey("dbo.Orders", "CustomerID", "dbo.Customers");
+            DropForeignKey("dbo.Orders", "BillToAddressID", "dbo.Addresses");
+            DropForeignKey("dbo.Addresses", "CustomerID", "dbo.Customers");
+            DropIndex("dbo.OrderItems", new[] { "ProductID" });
+            DropIndex("dbo.Products", new[] { "CustomerID" });
+            DropIndex("dbo.Products", new[] { "CategoryID" });
+            DropIndex("dbo.OrderItems", new[] { "OrderID" });
+            DropIndex("dbo.OrderItems", new[] { "CategoryID" });
+            DropIndex("dbo.Orders", new[] { "ShipToAddressID" });
+            DropIndex("dbo.Orders", new[] { "CustomerID" });
+            DropIndex("dbo.Orders", new[] { "BillToAddressID" });
+            DropIndex("dbo.Addresses", new[] { "CustomerID" });
             DropTable("dbo.Products");
+            DropTable("dbo.Categories");
             DropTable("dbo.OrderItems");
             DropTable("dbo.Orders");
             DropTable("dbo.Customers");

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebStore.Domain.Entities.Address>
+
+@{
+    ViewBag.Title = "Addresses";
+}
+
+@section featured {
+    @Html.Partial("MainHeadingPartial")
+}
+
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        All Addresses
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-condensed table-bordered">
+            <tr>
+                <th class="text-right">AddressID</th>
+                <th>StreetLine1</th>
+                <th>StreetLine2</th>
+                <th>StreetLine3</th>
+                <th>City</th>
+                <th>PostalCode</th>
+                <th>County</th>
+                <th>Country</th>
+                <th>CustomerID</th>
+            </tr>
+            @foreach (var item in Model) {
+                <tr>
+                    <td class="text-right">@item.AddressID</td>
+                    <td>@Html.ActionLink(item.StreetLine1, "Edit", new { item.AddressID })</td>
+                    <td>@item.StreetLine2</td>
+                    <td>@item.StreetLine3</td>
+                    <td>@item.City</td>
+                    <td>@item.PostalCode</td>
+                    <td>@item.County</td>
+                    <td>@item.Country</td>
+                    <td>@item.CustomerID</td>
+                    <td class="text-center">
+                        @using (Html.BeginForm("Delete", "AdminAddress")) {
+                            @Html.Hidden("AddressID", item.AddressID)
+                            <input type="submit"
+                                   class="btn btn-default btn-xs"
+                                   value="Delete" />
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="panel-footer">
+        @Html.ActionLink("Add a new address", "Create", null,
+            new { @class = "btn btn-default" })
+    </div>
+</div>

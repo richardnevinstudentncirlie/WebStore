@@ -2,6 +2,7 @@
 using WebStore.Domain.Abstract;
 using WebStore.Domain.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WebStore.Domain.Concrete 
 {
@@ -15,13 +16,18 @@ namespace WebStore.Domain.Concrete
             get { return context.Customers; }
         }
 
- 
+
+        public IEnumerable<Customer> GetCustomers(int UserID)
+        {
+            IEnumerable<Customer> customers = context.Customers.Where(x => x.UserID == UserID);
+            return (customers);
+        }
+
         public void SaveCustomer(Customer customer) 
         {
 
             if (customer.CustomerID == 0) 
             {
-
                 customer.CreatedAt = DateTime.Now;
                 customer.UpdatedAt = DateTime.Now;
                 context.Customers.Add(customer);
@@ -32,7 +38,6 @@ namespace WebStore.Domain.Concrete
                 if (dbEntry != null) 
                 {
                     dbEntry.FirstName = customer.FirstName;
-                    dbEntry.LastName = customer.LastName;
                     dbEntry.LastName = customer.LastName;
                     dbEntry.Company = customer.Company;
                     dbEntry.Email = customer.Email;
@@ -53,5 +58,6 @@ namespace WebStore.Domain.Concrete
             }
             return dbEntry;
         }
+
     }
 }

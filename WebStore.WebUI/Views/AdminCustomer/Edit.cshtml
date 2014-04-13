@@ -1,0 +1,67 @@
+﻿@model WebStore.Domain.Entities.Customer
+
+@{
+    ViewBag.Title = "Edit Customer " + @Model.CustomerID;
+
+    HtmlHelper.ClientValidationEnabled = false; 
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = false;
+    
+}
+
+@section featured {
+    @Html.Partial("MainHeadingPartial")
+}
+
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        Edit @Model.CustomerID
+    </div>
+
+   @using (Html.BeginForm("Edit", "AdminCustomer",
+        FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="panel-body">
+            @foreach (var property in ViewData.ModelMetadata.Properties)
+            {
+                
+                switch (property.PropertyName)
+                {
+                    case "UserID":
+                    case "CreatedAt":
+                    case "UpdatedAt":
+                    case "Addresses":
+                    case "Orders":
+                    case "Products":
+                        // do nothing
+                        break;
+                    default:
+                        <div class="form-group">
+                        <label>@(property.DisplayName ?? property.PropertyName)</label>
+                        @if (property.PropertyName == "CustomerID")
+                        {
+                            @Html.TextBox(property.PropertyName, null,
+                                new { @class = "form-control", @readonly = "readonly" })
+                        }
+                        else
+                        {
+                                @Html.TextBox(property.PropertyName, null,
+                                    new { @class = "form-control" })
+                        }
+                        @Html.ValidationMessage(property.PropertyName)
+                        </div>
+                        break;
+                }
+            }
+
+        </div>
+
+        <div class="panel-footer">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            @Html.ActionLink("Cancel and return to List", "Index", null, new
+            {
+                @class = "btn btn-default"
+            })
+        </div>
+    }
+</div>

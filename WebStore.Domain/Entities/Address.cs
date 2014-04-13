@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 namespace WebStore.Domain.Entities
 {
@@ -43,7 +44,8 @@ namespace WebStore.Domain.Entities
         [HiddenInput(DisplayValue = false)]
         public DateTime UpdatedAt { get; set; }
 
-        
-        public virtual Customer CustomerAddress { get; set; }
+        public int CustomerID { get; set; }
+        [ForeignKey("CustomerID")]
+        public virtual Customer AddressCustomerID { get; set; }
     }
 }

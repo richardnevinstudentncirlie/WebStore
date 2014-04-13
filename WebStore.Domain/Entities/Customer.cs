@@ -11,7 +11,8 @@ namespace WebStore.Domain.Entities
         [HiddenInput(DisplayValue = false)]
         public int CustomerID { get; set; }
 
-        [HiddenInput(DisplayValue = false)]
+        //[HiddenInput(DisplayValue = false)]
+        [Required(ErrorMessage = "Please enter a UserID")]
         public int  UserID { get; set; }
 
         [MaxLength(50)]
@@ -29,7 +30,7 @@ namespace WebStore.Domain.Entities
         [MaxLength(225)]
         public string Email { get; set; }
 
-        [MinLength(10), MaxLength(15)]
+        [MinLength(4), MaxLength(15)]
         public string Phone { get; set; }
 
 
@@ -42,6 +43,7 @@ namespace WebStore.Domain.Entities
 
         //public virtual UserProfile UserID { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
 

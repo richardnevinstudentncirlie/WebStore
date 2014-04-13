@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Checkout Review Order";
+}
+@section featured {
+    @Html.Partial("MainHeadingPartial")
+}
+<h2>Review Order </h2>
+<p />
+<p>OrderID: @ViewBag.PayPalReview.OrderID</p>
+<p>OrderDate: @ViewBag.PayPalReview.OrderDate</p>
+<p>Username: @ViewBag.PayPalReview.Username</p>
+<p>FirstName: @ViewBag.PayPalReview.FirstName</p>
+<p>LastName: @ViewBag.PayPalReview.LastName</p>
+<p>Address: @ViewBag.PayPalReview.Address</p>
+<p>City: @ViewBag.PayPalReview.City</p>
+<p>State: @ViewBag.PayPalReview.State</p>
+<p>PostalCode: @ViewBag.PayPalReview.PostalCode</p>
+<p>Email: @ViewBag.PayPalReview.Email</p>
+<p>TotalAmount: @ViewBag.PayPalReview.TotalAmount</p>
+<p />
+@Html.ActionLink("Continue", "CheckoutReviewOrderCont", null, new { @class = "btn btn-primary" })
+
+

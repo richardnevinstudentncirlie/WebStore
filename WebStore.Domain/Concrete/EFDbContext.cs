@@ -1,5 +1,8 @@
 ﻿using WebStore.Domain.Entities;
 using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace WebStore.Domain.Concrete 
 {
@@ -15,6 +18,12 @@ namespace WebStore.Domain.Concrete
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+
+        // To resolve "cause cycles or multiple cascade paths" when entity framework is creating database
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+        }
 
     }
 

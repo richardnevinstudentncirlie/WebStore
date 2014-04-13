@@ -210,23 +210,38 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminAddressController.cs" />
     <Compile Include="Controllers\AdminCategoryController.cs" />
+    <Compile Include="Controllers\AdminCustomerController.cs" />
+    <Compile Include="Controllers\AdminOrderController.cs" />
+    <Compile Include="Controllers\AdminOrderItemController.cs" />
     <Compile Include="Controllers\AdminProductController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\scaAddressController.cs" />
+    <Compile Include="Controllers\scaCategoryController.cs" />
+    <Compile Include="Controllers\scaCustomerController.cs" />
+    <Compile Include="Controllers\scaOrderController.cs" />
+    <Compile Include="Controllers\scaOrderItemController.cs" />
+    <Compile Include="Controllers\scaProductController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelpers\CreateAdminUser.cs" />
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
+    <Compile Include="HtmlHelpers\PayPalFunctions.cs" />
+    <Compile Include="HtmlHelpers\UserSessionData.cs" />
+    <Compile Include="HtmlHelpers\Utilities.cs" />
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CartIndexViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\ProductsListView.cs" />
+    <Compile Include="Models\PayPalReview.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -375,6 +390,48 @@
     <Content Include="Views\Shared\MainHeadingPartial.cshtml" />
     <Content Include="Views\AdminCategory\Edit.cshtml" />
     <Content Include="Views\AdminCategory\Index.cshtml" />
+    <Content Include="Views\Cart\CheckoutReviewOrder.cshtml" />
+    <Content Include="Views\Cart\CheckoutCancel.cshtml" />
+    <Content Include="Views\Cart\CheckoutComplete.cshtml" />
+    <Content Include="Views\Cart\CheckoutReviewTrans.cshtml" />
+    <Content Include="Views\Cart\CheckoutError.cshtml" />
+    <Content Include="Views\scaCategory\Create.cshtml" />
+    <Content Include="Views\scaCategory\Delete.cshtml" />
+    <Content Include="Views\scaCategory\Details.cshtml" />
+    <Content Include="Views\scaCategory\Edit.cshtml" />
+    <Content Include="Views\scaCategory\Index.cshtml" />
+    <Content Include="Views\scaCustomer\Create.cshtml" />
+    <Content Include="Views\scaCustomer\Delete.cshtml" />
+    <Content Include="Views\scaCustomer\Details.cshtml" />
+    <Content Include="Views\scaCustomer\Edit.cshtml" />
+    <Content Include="Views\scaCustomer\Index.cshtml" />
+    <Content Include="Views\scaAddress\Create.cshtml" />
+    <Content Include="Views\scaAddress\Delete.cshtml" />
+    <Content Include="Views\scaAddress\Details.cshtml" />
+    <Content Include="Views\scaAddress\Edit.cshtml" />
+    <Content Include="Views\scaAddress\Index.cshtml" />
+    <Content Include="Views\scaProduct\Create.cshtml" />
+    <Content Include="Views\scaProduct\Delete.cshtml" />
+    <Content Include="Views\scaProduct\Details.cshtml" />
+    <Content Include="Views\scaProduct\Edit.cshtml" />
+    <Content Include="Views\scaProduct\Index.cshtml" />
+    <Content Include="Views\scaOrder\Create.cshtml" />
+    <Content Include="Views\scaOrder\Delete.cshtml" />
+    <Content Include="Views\scaOrder\Details.cshtml" />
+    <Content Include="Views\scaOrder\Edit.cshtml" />
+    <Content Include="Views\scaOrder\Index.cshtml" />
+    <Content Include="Views\scaOrderItem\Create.cshtml" />
+    <Content Include="Views\scaOrderItem\Delete.cshtml" />
+    <Content Include="Views\scaOrderItem\Details.cshtml" />
+    <Content Include="Views\scaOrderItem\Edit.cshtml" />
+    <Content Include="Views\scaOrderItem\Index.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
+    <Content Include="Views\AdminCustomer\Edit.cshtml" />
+    <Content Include="Views\AdminCustomer\Index.cshtml" />
+    <Content Include="Views\AdminAddress\Edit.cshtml" />
+    <Content Include="Views\AdminAddress\Index.cshtml" />
+    <Content Include="Views\AdminOrder\Index.cshtml" />
+    <Content Include="Views\AdminOrderItem\DispOrderItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<WebStore.Domain.Entities.Address>
+@{
+    ViewBag.Title = "Address Index";
+}
+@section featured {
+    @Html.Partial("MainHeadingPartial")
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AddressCustomerID.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StreetLine1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StreetLine2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StreetLine3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.County)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+ 
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddressCustomerID.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StreetLine1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StreetLine2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StreetLine3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostalCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.County)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country)
+        </td>
+ 
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AddressID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AddressID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AddressID })
+        </td>
+    </tr>
+}
+
+</table>

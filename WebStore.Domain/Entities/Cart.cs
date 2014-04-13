@@ -38,6 +38,11 @@ namespace WebStore.Domain.Entities
             return lineCollection.Sum(e => e.Product.Price * e.Quantity);
 
         }
+        public int ComputeNumItems()
+        {
+            return lineCollection.Sum(e => e.Quantity);
+
+        }
         public void Clear()
         {
             lineCollection.Clear();

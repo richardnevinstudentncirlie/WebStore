@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 namespace WebStore.Domain.Entities
 {
@@ -48,8 +49,13 @@ namespace WebStore.Domain.Entities
         [HiddenInput(DisplayValue = false)]
         public DateTime UpdatedAt { get; set; }
 
-        public virtual Category ProductCategory { get; set; }
-        public virtual Customer ProductCustomer { get; set; }
+        public int CategoryID { get; set; }
+        [ForeignKey("CategoryID")]
+        public virtual Category ProductCategoryID { get; set; }
+
+        public int CustomerID { get; set; }
+        [ForeignKey("CustomerID")]
+        public virtual Customer ProductCustomerID { get; set; }
 
     }
 
