@@ -16,6 +16,21 @@ namespace WebStore.WebUI.Controllers
     {
         private EFDbContext db = new EFDbContext();
 
+        public FileContentResult GetImage(int productId)
+        {
+            Product prod = db.Products
+                .FirstOrDefault(p => p.ProductID == productId);
+            if (prod != null)
+            {
+                return File(prod.ImageData, prod.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
         // GET: /scaProduct/
         public ActionResult Index()
         {
@@ -51,10 +66,17 @@ namespace WebStore.WebUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ProductID,Name,Description,Price,Category,Quantity,Special,ImageData,ImageMimeType,Seller,Buyer,CreatedAt,UpdatedAt,CategoryID,CustomerID")] Product product)
+        public ActionResult Create([Bind(Include = "ProductID,Name,Description,Price,Category,Quantity,Special,ImageData,ImageMimeType,Seller,Buyer,CreatedAt,UpdatedAt,CategoryID,CustomerID")] Product product, HttpPostedFileBase image = null)
         {
             if (ModelState.IsValid)
             {
+
+                if (image != null)
+                {
+                    product.ImageMimeType = image.ContentType;
+                    product.ImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(product.ImageData, 0, image.ContentLength);
+                }
 
                 product.CreatedAt = DateTime.Now;
                 product.UpdatedAt = DateTime.Now;
@@ -93,10 +115,17 @@ namespace WebStore.WebUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ProductID,Name,Description,Price,Category,Quantity,Special,ImageData,ImageMimeType,Seller,Buyer,CreatedAt,UpdatedAt,CategoryID,CustomerID")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,Name,Description,Price,Category,Quantity,Special,ImageData,ImageMimeType,Seller,Buyer,CreatedAt,UpdatedAt,CategoryID,CustomerID")] Product product, HttpPostedFileBase image = null)
         {
             if (ModelState.IsValid)
             {
+
+                if (image != null)
+                {
+                    product.ImageMimeType = image.ContentType;
+                    product.ImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(product.ImageData, 0, image.ContentLength);
+                }
 
                 product.CreatedAt = DateTime.Now;
                 product.UpdatedAt = DateTime.Now;

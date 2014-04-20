@@ -222,6 +222,8 @@ namespace WebStore.WebUI.Controllers {
                 UserSessionData.OrderID = orderID;
 
                 NVPAPICaller payPalCaller = new NVPAPICaller();
+                payPalCaller.SetCredentials();
+
                 string retMsg = "";
                 string token = "";
                 decimal amtVal = cart.ComputeTotalValue();
@@ -257,6 +259,7 @@ namespace WebStore.WebUI.Controllers {
             string PayerID = "";
 
             NVPAPICaller payPalCaller = new NVPAPICaller();
+            payPalCaller.SetCredentials();
 
             NVPCodec decoder = new NVPCodec();
 
@@ -336,6 +339,7 @@ namespace WebStore.WebUI.Controllers {
             string PayerID = "";
 
             NVPAPICaller payPalCaller = new NVPAPICaller();
+            payPalCaller.SetCredentials();
 
             NVPCodec decoder = new NVPCodec();
 

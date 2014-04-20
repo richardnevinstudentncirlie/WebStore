@@ -10,6 +10,8 @@ namespace WebStore.WebUI.HtmlHelpers
     {
 
         //Session variable constants
+        public const string USERLOGGEDON = "UserLoggedOn";  
+
         public const string USERID = "UserId";  
         public const string USERNAME = "UserName";  
         public const string ROLEID = "RoldId";
@@ -40,6 +42,13 @@ namespace WebStore.WebUI.HtmlHelpers
         {
             HttpContext.Current.Session[variable] = value;
         }
+
+        public static bool UserLoggedOn
+        {
+            get { return Read<bool>(USERLOGGEDON); }
+            set { Write(USERLOGGEDON, value); }
+        }
+
 
         public static int UserId
         {

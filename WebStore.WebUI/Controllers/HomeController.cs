@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebStore.WebUI.Models;
+using WebStore.WebUI.HtmlHelpers;
 
 namespace WebStore.WebUI.Controllers
 {
@@ -18,6 +19,16 @@ namespace WebStore.WebUI.Controllers
 
         public ActionResult About()
         {
+            bool userLoggedOn;
+            int userId;
+            
+            userLoggedOn = UserSessionData.UserLoggedOn;
+            userId = UserSessionData.UserId;
+
+            AppSettings appSettings = new AppSettings();
+            string appSettingKeyValue;
+            appSettingKeyValue = appSettings.getAppSetting("customsetting1");
+
             ViewBag.Message = "";
 
             return View();

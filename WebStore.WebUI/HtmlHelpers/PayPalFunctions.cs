@@ -35,22 +35,31 @@ namespace WebStore.WebUI.HtmlHelpers
         //Replace <Your API Username> with your API Username
         //Replace <Your API Password> with your API Password
         //Replace <Your Signature> with your Signature
-        public string APIUsername = "richard.nevin-facilitator_api1.student.ncirl.ie";
-        private string APIPassword = "1397210401";
-        private string APISignature = "A-9NIko4Kbj-kVMpSUgphA6pq9YyAO79pBfM5PjWgy-Lns6ySmprhAn6";
+        public string APIUsername = "";
+        private string APIPassword = "";
+        private string APISignature = "";
+        private string returnURL = "";
+        private string cancelURL = "";
+        private string brandName = "";
+
         private string Subject = "";
         private string BNCode = "PP-ECWizard";
-
 
         //HttpWebRequest Timeout specified in milliseconds 
         private const int Timeout = 15000;
         private static readonly string[] SECURED_NVPS = new string[] { ACCT, CVV2, SIGNATURE, PWD };
 
-        public void SetCredentials(string Userid, string Pwd, string Signature)
+
+        //public void SetCredentials(string Userid, string Pwd, string Signature, string retURL, string canURL)
+        public void SetCredentials()
         {
-            APIUsername = Userid;
-            APIPassword = Pwd;
-            APISignature = Signature;
+            AppSettings appSettings = new AppSettings();
+            APIUsername = appSettings.getAppSetting("APIUsername");
+            APIPassword = appSettings.getAppSetting("APIPassword");
+            APISignature = appSettings.getAppSetting("APISignature");
+            returnURL = appSettings.getAppSetting("returnURL");
+            cancelURL = appSettings.getAppSetting("cancelURL");
+            brandName = appSettings.getAppSetting("brandName");
         }
 
         public bool ShortcutExpressCheckout(Cart cart, string amt, ref string token, ref string retMsg)
@@ -62,9 +71,6 @@ namespace WebStore.WebUI.HtmlHelpers
                 pEndPointURL = pEndPointURL_SB;
                 host = host_SB;
             }
-
-            string returnURL = "http://localhost:54789/Cart/CheckoutReview";
-            string cancelURL = "http://localhost:54789/Cart/CheckoutCancel";
 
             NVPCodec encoder = new NVPCodec();
             encoder["METHOD"] = "SetExpressCheckout";
