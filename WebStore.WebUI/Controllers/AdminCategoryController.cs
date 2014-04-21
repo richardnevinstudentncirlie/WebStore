@@ -5,7 +5,7 @@ using WebStore.Domain.Entities;
 
 namespace WebStore.WebUI.Controllers
 {
-
+    [Authorize(Roles = "Administrator")]
     public class AdminCategoryController : Controller
     {
         private ICategoryRepository repository;

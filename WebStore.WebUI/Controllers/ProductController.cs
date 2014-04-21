@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using WebStore.Domain.Abstract;
 using WebStore.Domain.Entities;
 using WebStore.WebUI.Models;
+using WebStore.WebUI.HtmlHelpers;
 
 namespace WebStore.WebUI.Controllers {
 
@@ -34,7 +35,17 @@ namespace WebStore.WebUI.Controllers {
                 },
                 CurrentCategory = category
             };
+
+            ViewBag.UserLoggedOn = UserSessionData.UserLoggedOn;
+
             return View(viewModel);
+        }
+
+        public ViewResult Review(int productId)
+        {
+            Product product = repository.Products
+                .FirstOrDefault(p => p.ProductID == productId);
+            return View(product);
         }
 
         public FileContentResult GetImage(int productId)

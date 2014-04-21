@@ -10,7 +10,6 @@ using WebStore.WebUI.HtmlHelpers;
 
 namespace WebStore.WebUI.Controllers {
 
-
     public class CartController : Controller {
         private IProductRepository repository;
         private IOrderRepository orderRepository;

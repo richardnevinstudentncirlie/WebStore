@@ -1,0 +1,92 @@
+﻿@model WebStore.Domain.Entities.Product
+
+@{
+    ViewBag.Title = "Review Product " + @Model.Name;
+
+    HtmlHelper.ClientValidationEnabled = false; 
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = false;
+    
+}
+
+@section featured {
+    @Html.Partial("MainHeadingPartial")
+}
+
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        Review @Model.Name
+    </div>
+
+   @using (Html.BeginForm("Review", "Product",
+        FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="panel-body">
+            @foreach (var property in ViewData.ModelMetadata.Properties)
+            {
+                
+                switch (property.PropertyName)
+                {
+                    case "ProductID":
+                    case "Seller":
+                    case "Buyer":
+                    case "CreatedAt":
+                    case "UpdatedAt":
+                    case "ProductCategoryID":
+                    case "ProductCustomerID":
+                    case "CategoryID":
+                    case "CustomerID":
+                    case "ImageData":
+                    case "ImageMimeType":
+                        // do nothing
+                        break;
+                    default:
+                        <div class="form-group">
+                        <label>@(property.DisplayName ?? property.PropertyName)</label>
+                        @if (property.PropertyName == "ProductID")
+                        {
+                            @Html.TextBox(property.PropertyName, null,
+                                new { @class = "form-control", @readonly = "readonly" })
+                        }
+                        else
+                        {
+                            if (property.PropertyName == "Description")
+                            {
+                                @Html.TextArea(property.PropertyName, null,
+                                         new { @class = "form-control", rows = 5, @readonly = "readonly" })
+                            }
+                            else
+                            {
+                                @Html.TextBox(property.PropertyName, null,
+                                         new { @class = "form-control", @readonly = "readonly" })
+                            }
+                        }
+                        @Html.ValidationMessage(property.PropertyName)
+                        </div>
+                        break;
+                }
+            }
+
+            <div class="form-group">
+                @if (Model.ImageData == null)
+                {
+                    <div class="form-control-static">No Image</div>
+                }
+                else
+                {
+                    <img class="img-thumbnail" width="150" height="150"
+                         src="@Url.Action("GetImage", "Product",
+                        new { Model.ProductID })" />
+                }
+            </div>
+
+        </div>
+
+        <div class="panel-footer">
+            @Html.ActionLink("Return to List", "List", null, new
+            {
+                @class = "btn btn-default"
+            })
+        </div>
+    }
+</div>

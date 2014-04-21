@@ -10,9 +10,13 @@
 }
 
 <div class="navbar" role="navigation">
-    <a class="navbar-brand" href="#">Product List</a>
-    @Html.Action("Summary", "Cart")
+    @if (@ViewBag.UserLoggedOn)
+    {
+        <a class="navbar-brand" href="#">Product List</a>
+        @Html.Action("Summary", "Cart")
+    }
 </div>
+
 <div class="row panel">
     <div id="categories" class="col-xs-3">
         @Html.Action("Menu", "Nav")

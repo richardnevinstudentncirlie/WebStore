@@ -4,7 +4,7 @@ using WebStore.Domain.Abstract;
 using System.Linq;
 
 namespace WebStore.WebUI.Controllers {
-
+    
     public class NavController : Controller {
         private IProductRepository repository;
 

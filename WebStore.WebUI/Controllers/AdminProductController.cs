@@ -7,7 +7,7 @@ using WebStore.Domain.Entities;
 namespace WebStore.WebUI.Controllers 
 {
 
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class AdminProductController : Controller 
     {
         private IProductRepository repository;
