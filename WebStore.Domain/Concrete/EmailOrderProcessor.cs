@@ -72,9 +72,10 @@ namespace WebStore.Domain.Concrete
                     .AppendLine(shippingInfo.Line2 ?? "")
                     .AppendLine(shippingInfo.Line3 ?? "")
                     .AppendLine(shippingInfo.City)
-                    .AppendLine(shippingInfo.State ?? "")
-                    .AppendLine(shippingInfo.Country)
-                    .AppendLine(shippingInfo.Zip)
+                    //.AppendLine(shippingInfo.State ?? "")
+                    .AppendLine(shippingInfo.Country ?? "")
+                    //.AppendLine(shippingInfo.Zip)
+                    .AppendLine(shippingInfo.PostalCode ?? "")
                     .AppendLine("---")
                     .AppendFormat("Gift wrap: {0}",
                         shippingInfo.GiftWrap ? "Yes" : "No");

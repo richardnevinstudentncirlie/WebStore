@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using WebMatrix.WebData;
 using WebStore.Domain.Abstract;
 using WebStore.Domain.Entities;
 using WebStore.WebUI.Models;
@@ -15,12 +16,18 @@ namespace WebStore.WebUI.Controllers {
         private IOrderRepository orderRepository;
         private IOrderItemRepository orderItemRepository;
         private IOrderProcessor orderProcessor;
+        private ICustomerRepository repositoryCustomer;
+        private IAddressRepository repositoryAddress;
 
-        public CartController(IProductRepository repo, IOrderRepository orderRepo, IOrderItemRepository orderItemRepo, IOrderProcessor proc) {
+        public CartController(IProductRepository repo, IOrderRepository orderRepo, IOrderItemRepository orderItemRepo, IOrderProcessor proc, IAddressRepository repoAddress, ICustomerRepository repoCustomer)
+        {
             repository = repo;
             orderRepository = orderRepo;
             orderItemRepository = orderItemRepo;
             orderProcessor = proc;
+            repositoryAddress = repoAddress;
+            repositoryCustomer = repoCustomer;
+
         }
         
 
@@ -59,12 +66,36 @@ namespace WebStore.WebUI.Controllers {
 
         public ViewResult Checkout(Cart cart)
         {
-            //for testing
-            int rc = testStoreOfInfo(cart);
+            ShippingDetails shippingDetails = new ShippingDetails();
 
-            return View(new ShippingDetails());
+            int userID = WebSecurity.CurrentUserId;
+            IEnumerable<Customer> customers = repositoryCustomer.Customers.Where(x => x.UserID == userID);
+            IEnumerable<Address> addresses = from x in repositoryAddress.Addresses
+                                             join y in repositoryCustomer.Customers on x.CustomerID equals y.CustomerID
+                                             where y.UserID == userID
+                                             select x;
+            foreach (var customer in customers)
+            {
+                shippingDetails.Name = customer.FirstName;
+            }
+            foreach (var address in addresses)
+            {
+                shippingDetails.Line1 = address.StreetLine1;
+                shippingDetails.Line2  = address.StreetLine2; 
+                shippingDetails.Line3  = address.StreetLine3; 
+                shippingDetails.City  = address.City; 
+                shippingDetails.PostalCode  = address.PostalCode;
+                shippingDetails.Country  = address.County;
+            }
+
+
+            //for testing
+            //int rc = testStoreOfInfo(cart);
+
+            return View(shippingDetails);
         }
 
+        /*
         [HttpPost]
         public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails)
         {
@@ -85,6 +116,16 @@ namespace WebStore.WebUI.Controllers {
                 return View(shippingDetails);
             }
         }
+        */
+
+        [HttpPost]
+        public ActionResult Checkout(Cart cart, ShippingDetails shippingDetails)
+        //public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails)
+        {
+            return RedirectToAction("List", "Product");
+            //return View("Completed");
+        }
+
 
         public int testStoreOfInfo(Cart cart)
         {

@@ -76,7 +76,7 @@ namespace WebStore.WebUI.HtmlHelpers
             encoder["METHOD"] = "SetExpressCheckout";
             encoder["RETURNURL"] = returnURL;
             encoder["CANCELURL"] = cancelURL;
-            encoder["BRANDNAME"] = "NCIRL Web Sports Store";
+            encoder["BRANDNAME"] = "NCIRL Web Store";
             encoder["PAYMENTREQUEST_0_AMT"] = amt;
             encoder["PAYMENTREQUEST_0_ITEMAMT"] = amt;
             encoder["PAYMENTREQUEST_0_PAYMENTACTION"] = "Sale";
