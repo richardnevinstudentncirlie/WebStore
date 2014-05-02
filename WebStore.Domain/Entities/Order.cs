@@ -8,7 +8,7 @@ namespace WebStore.Domain.Entities
 
     public class Order
     {
-        [HiddenInput(DisplayValue = false)]
+        //[HiddenInput(DisplayValue = false)]
         public int OrderID { get; set; }
 
 

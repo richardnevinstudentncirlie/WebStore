@@ -19,6 +19,7 @@ namespace WebStore.WebUI.Controllers
 
         public ActionResult About()
         {
+            /* Simple tests
             bool userLoggedOn;
             int userId;
             
@@ -28,6 +29,7 @@ namespace WebStore.WebUI.Controllers
             AppSettings appSettings = new AppSettings();
             string appSettingKeyValue;
             appSettingKeyValue = appSettings.getAppSetting("customsetting1");
+            */
 
             ViewBag.Message = "";
 

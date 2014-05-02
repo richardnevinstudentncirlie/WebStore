@@ -32,6 +32,10 @@ namespace WebStore.WebUI.Controllers
                                                  join y in repositoryCustomer.Customers on x.CustomerID equals y.CustomerID
                                                  where y.UserID == userID
                                                  select x;
+            ViewBag.AddressExists = false;
+            if (addresses.Count() > 0)
+                ViewBag.AddressExists = true;
+
             return View(addresses);
         }
 
@@ -40,6 +44,16 @@ namespace WebStore.WebUI.Controllers
         {
             int userID = WebSecurity.CurrentUserId;
             return new SelectList(repositoryCustomer.Customers.Where(x => x.UserID == userID), "CustomerID", "CustomerID", address.CustomerID);
+        }
+        private int GetCustomerID(Address address)
+        {
+            int custID = 0;
+            int userID = WebSecurity.CurrentUserId;
+            IEnumerable<Customer> customers = repositoryCustomer.Customers.Where(x => x.UserID == userID);
+            foreach (var customer in customers) {
+                custID = customer.CustomerID;
+            }
+            return custID;
         }
 
         public ViewResult Edit(int addressId)
@@ -55,6 +69,7 @@ namespace WebStore.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
+                address.CustomerID = GetCustomerID(address);
                 repository.SaveAddress(address);
                 TempData["message"] = string.Format("{0} has been saved", address.AddressID);
                 return RedirectToAction("Index");

@@ -16,7 +16,7 @@
     <div class="panel-body">
         <table class="table table-striped table-condensed table-bordered">
             <tr>
-                <th class="text-right">AddressID</th>
+                <!-- <th class="text-right">AddressID</th> -->
                 <th>StreetLine1</th>
                 <th>StreetLine2</th>
                 <th>StreetLine3</th>
@@ -24,11 +24,11 @@
                 <th>PostalCode</th>
                 <th>County</th>
                 <th>Country</th>
-                <th>CustomerID</th>
+                <!-- <th>CustomerID</th> -->
             </tr>
             @foreach (var item in Model) {
                 <tr>
-                    <td class="text-right">@item.AddressID</td>
+                    <!-- <td class="text-right">@item.AddressID</td> -->
                     <td>@Html.ActionLink(item.StreetLine1, "Edit", new { item.AddressID })</td>
                     <td>@item.StreetLine2</td>
                     <td>@item.StreetLine3</td>
@@ -36,7 +36,7 @@
                     <td>@item.PostalCode</td>
                     <td>@item.County</td>
                     <td>@item.Country</td>
-                    <td>@item.CustomerID</td>
+                    <!-- <td>@item.CustomerID</td> -->
                     <td class="text-center">
                         @using (Html.BeginForm("Delete", "AdminAddress")) {
                             @Html.Hidden("AddressID", item.AddressID)
@@ -50,7 +50,9 @@
         </table>
     </div>
     <div class="panel-footer">
-        @Html.ActionLink("Add a new address", "Create", null,
-            new { @class = "btn btn-default" })
+        @if (!ViewBag.AddressExists) {
+            @Html.ActionLink("Add a new address", "Create", null,
+                new { @class = "btn btn-default" })
+        }
     </div>
 </div>

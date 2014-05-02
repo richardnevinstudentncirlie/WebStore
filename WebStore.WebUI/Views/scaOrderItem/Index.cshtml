@@ -11,15 +11,19 @@
 </p>
 <table class="table">
     <tr>
+        <!--
         <th>
             @Html.DisplayNameFor(model => model.OrderItemCategoryID.CategoryCode)
         </th>
+        -->
         <th>
-            @Html.DisplayNameFor(model => model.OrderItemOrderID.FirstName)
+            @Html.DisplayNameFor(model => model.OrderItemOrderID.OrderID)
         </th>
+        <!--
         <th>
             @Html.DisplayNameFor(model => model.OrderItemProductID.Name)
         </th>
+        -->
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -32,6 +36,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Category)
         </th>
+        <!--
         <th>
             @Html.DisplayNameFor(model => model.Special)
         </th>
@@ -47,29 +52,36 @@
         <th>
             @Html.DisplayNameFor(model => model.Buyer)
         </th>
+        -->
         <th>
             @Html.DisplayNameFor(model => model.Quantity)
         </th>
+        <!--
         <th>
             @Html.DisplayNameFor(model => model.CreatedAt)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.UpdatedAt)
         </th>
+        -->
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <!--
         <td>
             @Html.DisplayFor(modelItem => item.OrderItemCategoryID.CategoryCode)
         </td>
+        -->
         <td>
-            @Html.DisplayFor(modelItem => item.OrderItemOrderID.FirstName)
+            @Html.DisplayFor(modelItem => item.OrderItemOrderID.OrderID)
         </td>
+        <!--
         <td>
             @Html.DisplayFor(modelItem => item.OrderItemProductID.Name)
         </td>
+        -->
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
@@ -82,6 +94,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Category)
         </td>
+        <!--
         <td>
             @Html.DisplayFor(modelItem => item.Special)
         </td>
@@ -91,6 +104,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.ImageMimeType)
         </td>
+        -->
         <td>
             @Html.DisplayFor(modelItem => item.Seller)
         </td>
@@ -100,12 +114,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.Quantity)
         </td>
+        <!--
         <td>
             @Html.DisplayFor(modelItem => item.CreatedAt)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.UpdatedAt)
         </td>
+        -->
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.OrderItemID }) |
             @Html.ActionLink("Details", "Details", new { id=item.OrderItemID }) |

@@ -30,6 +30,7 @@
                     case "CreatedAt":
                     case "UpdatedAt":
                     case "AddressCustomerID":
+                    case "CustomerID":
                         // do nothing
                         break;
                     default:
@@ -42,11 +43,11 @@
                         }
                         else
                         {
-                            if (property.PropertyName == "CustomerID")
-                            {
-                                @Html.DropDownList("CustomerID", String.Empty)
-                            }
-                            else
+                            //if (property.PropertyName == "CustomerID")
+                            //{
+                            //    @Html.DropDownList("CustomerID", String.Empty)
+                            //}
+                            //else
                             {
                                 @Html.TextBox(property.PropertyName, null,
                                     new { @class = "form-control" })

@@ -25,6 +25,11 @@ namespace WebStore.WebUI.Controllers
         {
             int userID = WebSecurity.CurrentUserId;
             IEnumerable<Customer> customers = repository.Customers.Where(x => x.UserID == userID);
+
+            ViewBag.CustomerExists = false;
+            if (customers.Count() > 0)   
+                ViewBag.CustomerExists = true;
+
             return View(customers);
         }
 

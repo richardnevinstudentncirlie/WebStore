@@ -28,6 +28,7 @@
                 switch (property.PropertyName)
                 {
                     case "UserID":
+                    //case "CustomerID":
                     case "CreatedAt":
                     case "UpdatedAt":
                     case "Addresses":
@@ -42,6 +43,7 @@
                         {
                             @Html.TextBox(property.PropertyName, null,
                                 new { @class = "form-control", @readonly = "readonly" })
+                            //@Html.HiddenFor(x => property.PropertyName)
                         }
                         else
                         {
